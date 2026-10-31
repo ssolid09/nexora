@@ -53,13 +53,15 @@ canvas{max-height:250px}
 .mu{color:var(--mu)}.mv{padding:8px 0;border-bottom:1px solid var(--bd)}.mv small{display:block}.chp{display:inline-flex;align-items:center;gap:4px;background:var(--bg);border-radius:99px;padding:2px 4px 2px 12px;margin:0 6px 6px 0}.pb{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:4px 0}.pb i{display:block;height:100%;transition:width .4s}
 .fm{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.fm input,select{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:6px;padding:9px;font:inherit}
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--ac);padding:10px 16px;border-radius:8px;z-index:20;display:none}
+.bg3{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}.bx{background:var(--bg);border-radius:14px;padding:14px;text-align:center}.bx b{display:block;font-size:26px;margin-top:4px}.bx input{font-size:24px;font-weight:800;text-align:center;width:100%;border:0}.bx.ok b{color:var(--ok)}.bx.bad b{color:var(--bad)}
+.sbr{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.sbr button{flex:1;min-width:120px;padding:13px;border-radius:12px;font-weight:700;background:var(--bg);color:var(--tx);border:1px solid var(--bd)}.sbr .wa{background:#25D366;color:#04210f;border:0}
 </style></head><body><svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ng" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#00D4A7"/><stop offset="1" stop-color="#00AEEF"/></linearGradient></defs></svg>
 <div id="auth"><div class="c"><div style="text-align:center;margin-bottom:16px"><div style="display:grid;place-items:center"><svg class="lg" viewBox="0 0 48 48" fill="none"><path d="M10 39V9l28 30V9" stroke="url(#ng)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="9" r="4" fill="#F4B942"/></svg></div><div class="wm" style="color:var(--tx)">NEXORA</div><div class="tgl">CONTROLA · PLANIFICA · AHORRA</div><div style="color:var(--mu);margin-top:8px;font-size:12px">Tu vida financiera, en tus manos.</div></div><div style="margin-bottom:12px"><button class="tg on" id="a0" onclick="authTab('in')" style="margin:0">Ingresar</button><button class="tg" id="a1" onclick="authTab('up')">Crear cuenta</button></div>
 <input id="an" placeholder="Nombre" style="display:none"><input id="ae" type="email" placeholder="Correo"><input id="ap" type="password" placeholder="Contraseña (mín. 6)" onkeydown="if(event.key==='Enter')auth()">
 <label id="asw" style="display:none"><input type="checkbox" id="as">Cargar mis datos de ejemplo (sep–nov)</label><div id="aerr"></div><button class="go" id="ago" onclick="auth()">Ingresar</button><div style="text-align:center;margin-top:8px"><a href="#" onclick="forgot();return false" style="color:var(--ac);font-size:12px">¿Olvidaste tu contraseña?</a></div><div id="amode" style="margin-top:12px;font-size:12px;color:var(--mu);text-align:center"></div></div></div>
 <div id="toast"></div>
 <div class="app">
-<aside class="side"><div class="pf"><div style="display:grid;place-items:center"><svg class="lg" viewBox="0 0 48 48" fill="none"><path d="M10 39V9l28 30V9" stroke="url(#ng)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="9" r="4" fill="#F4B942"/></svg><div class="wm">NEXORA</div><div class="tgl">CONTROLA · PLANIFICA · AHORRA</div></div><b id="uname" style="display:block;margin-top:16px">Mi presupuesto</b><small id="uemail">Control de gastos</small></div><h6>MENÚ</h6><nav class="nav" id="tabs"></nav></aside>
+<aside class="side"><div class="pf"><div style="display:grid;place-items:center"><svg class="lg" viewBox="0 0 48 48" fill="none"><path d="M10 39V9l28 30V9" stroke="url(#ng)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="9" r="4" fill="#F4B942"/></svg><div class="wm">NEXORA</div><div class="tgl">CONTROLA · PLANIFICA · AHORRA</div></div><b id="uname" style="display:block;margin-top:16px">Mi presupuesto</b><small id="uemail">Control de gastos</small><small id="sst" style="margin-top:4px"></small></div><h6>MENÚ</h6><nav class="nav" id="tabs"></nav></aside>
 <div class="main"><div class="top"><div class="mn"><button onclick="go(-1)">‹</button><span id="ml"></span><button onclick="go(1)">›</button></div>
 <button class="tg" id="thm" onclick="theme()" title="Modo claro/oscuro">🌙</button><div class="sl"><span>Sueldo proyectado $</span><input type="number" id="sueldo" placeholder="0" inputmode="numeric" oninput="D().s=+this.value;save();refresh()"></div></div>
 <div class="ct"><div class="tt"><div><h1>Resumen de gastos</h1><small>Quincena, fin de mes y tarjetas</small></div><span class="pill" id="pill"></span></div>
@@ -75,7 +77,7 @@ canvas{max-height:250px}
 <div class="p" id="p1"><div class="c"><h2>Gastos de la quincena</h2><div id="q"></div></div></div>
 <div class="p" id="p2"><div class="c"><h2>Gastos del último del mes</h2><div id="u"></div></div></div>
 <div class="p" id="p3"><div class="c"><h2>💳 Tarjetas de crédito</h2><div id="cards"></div><button class="add" onclick="addCard()">+ Nueva tarjeta</button><div class="t"><span>Total tarjetas</span><span id="tc"></span></div></div></div>
-<div class="p" id="p4"><div class="c" id="tr"><h2>📲 Total a transferir</h2><div id="t"></div></div><button class="go" onclick="cap()">📸 Capturar para WhatsApp</button></div>
+<div class="p" id="p4"><div class="c" id="tr"><h2>📲 Total a transferir</h2><div id="t"></div></div><div class="sbr" id="sb_t"></div></div>
 <div class="p" id="p5"><div class="c"><h2 id="mh">Nuevo movimiento</h2><div class="fm"><select id="mt" onchange="fillCats()"><option value="gasto">Gasto</option><option value="ingreso">Ingreso</option></select><input id="md" placeholder="Descripción"><input id="mm" type="number" inputmode="numeric" placeholder="Monto"><input id="mf" type="date"><select id="mc"></select><select id="ma"><option>Cuenta principal</option><option>Efectivo</option><option>Tarjeta de crédito</option></select><select id="mp"><option>Transferencia</option><option>Débito</option><option>Crédito</option><option>Efectivo</option></select><input id="mn" placeholder="Notas (opcional)"></div>
 <div style="margin-top:10px"><button class="go" style="width:auto" onclick="saveMov()" id="msv">Guardar movimiento</button> <button class="add" id="mcn" style="display:none" onclick="cancelEd()">Cancelar</button></div></div>
 <div class="c"><h2>Movimientos del mes</h2><div id="mres" style="margin-bottom:8px"></div><div id="mlist"></div><button class="add" onclick="importLegacy()">⤓ Traer quincena, último del mes y tarjetas de este mes</button></div>
@@ -86,9 +88,14 @@ canvas{max-height:250px}
 <div class="p" id="p9"><div class="c"><h2>Perfil y preferencias</h2><div class="fm"><input id="cfn" placeholder="Nombre"><select id="cfm"><option value="CLP">Peso chileno ($)</option><option value="USD">Dólar (US$)</option><option value="EUR">Euro (€)</option><option value="VES">Bolívar (Bs.)</option></select><select id="cff"><option value="DMY">DD/MM/AAAA</option><option value="ISO">AAAA-MM-DD</option></select><button class="go" style="width:auto" onclick="saveCfg()">Guardar</button></div></div>
 <div class="c"><h2>Seguridad</h2><div class="fm"><input id="cp" type="password" placeholder="Nueva contraseña (mín. 6)"><button class="go" style="width:auto" onclick="chgPass()">Cambiar contraseña</button></div><div id="cses" style="margin-top:12px"></div></div>
 <div class="c"><h2>Respaldo</h2><p class="mu" style="margin-top:0">Descarga una copia de todos tus datos.</p><button class="go" style="width:auto" onclick="backup()">Descargar respaldo (JSON)</button></div></div>
+<div class="p" id="p10"><div class="c"><div class="bg3"><div class="bx"><label class="mu">Sueldo estimado</label><input id="ss" type="number" inputmode="numeric" placeholder="0" oninput="SIM().s=+this.value;save();simUpd()"></div><div class="bx"><label class="mu">Total gastos</label><b id="sg"></b></div><div class="bx" id="sq"><label class="mu">Te quedan</label><b id="sr"></b></div></div><p class="mu" style="margin:10px 0 0">Esta simulación es independiente: no cambia tus datos reales.</p><div class="sbr" id="sb_s"></div></div>
+<div class="c"><h2>Gastos simulados</h2><button class="go" style="width:auto;margin-bottom:10px" onclick="simPull()">⤓ Traer gastos y sueldo del mes</button><div id="sml"></div></div></div>
+<div class="p" id="p11"><div class="c"><h2>Gastos compartidos</h2><input id="hw" placeholder="¿Con quién compartes? (ej. Pareja, Roommate)" style="width:100%;margin-bottom:10px;border:1px solid var(--bd);border-radius:6px;padding:10px" oninput="SH().w=this.value;save()"><div id="shl"></div></div>
+<div class="c"><div class="bg3"><div class="bx"><label class="mu">Total compartido</label><b id="hg2"></b></div><div class="bx"><label class="mu">Último del mes ahora</label><b id="hb2"></b></div></div><p class="mu" id="hn" style="margin-bottom:0"></p><div class="sbr" id="sb_h"></div></div></div>
 </div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 const L=s=>s.split(',').map(x=>{const[a,b]=x.split(':');return{d:a,m:+b}});
@@ -102,23 +109,23 @@ const sum=a=>a.reduce((x,i)=>x+(+i.m||0),0),esc=s=>String(s).replace(/&/g,'&amp;
 const D=k=>S[k||cur]||(S[k||cur]={s:0,q:[],u:[],c:[],t:[]});
 
 const shift=(k,n)=>{let[y,m]=k.split('-').map(Number);m+=n;while(m<1){m+=12;y--}while(m>12){m-=12;y++}return y+'-'+String(m).padStart(2,'0')};
-const tot=k=>{const d=S[k];if(!d)return null;const q=sum(d.q),t=d.c.reduce((x,c)=>x+sum(c.i),0),u=sum(d.u),g=q+u+t;return{q,u,t,g,s:+d.s||0}};
-const arr=(n,ci)=>n==='c'?D().c[ci].i:D()[n];
+const tot=k=>{const d=S[k];if(!d)return null;const q=sum(d.q),t=d.c.reduce((x,c)=>x+sum(c.i),0),sh=S.__sh&&S.__sh[k]?sum(S.__sh[k].i):0,u=sum(d.u)-sh,g=q+u+t;return{q,u,t,g,sh,s:+d.s||0}};
+const arr=(n,ci)=>n==='c'?D().c[ci].i:n==='sm'?SIM().i:n==='sh'?SH().i:D()[n];
 const rows=(n,ci)=>arr(n,ci).map((it,i)=>`<div class="r"><input value="${esc(it.d)}" placeholder="Descripción" oninput="upd('${n}',${i},'d',this.value,${ci})"><input type="number" class="dy" min="1" max="31" value="${it.f||''}" placeholder="día" title="Día del mes" oninput="upd('${n}',${i},'f',this.value,${ci})"><input type="number" inputmode="numeric" value="${it.m||''}" placeholder="0" oninput="upd('${n}',${i},'m',this.value,${ci})"><button class="x" data-skip onclick="del('${n}',${i},${ci})">✕</button></div>`).join('');
-const list=(n,tid)=>rows(n)+`<button class="add" data-skip onclick="add('${n}')">+ Agregar</button>`+(n==='u'?'<div class="fx"><span>💳 Tarjetas (automático)</span><b id="uc"></b></div>':'')+`<div class="t"><span>Total</span><span id="${tid}"></span></div>`;
+const list=(n,tid)=>rows(n)+`<button class="add" data-skip onclick="add('${n}')">+ Agregar</button>`+(n==='u'?'<div class="fx"><span>💳 Tarjetas (automático)</span><b id="uc"></b></div><div class="fx"><span>🤝 Compartidos (descuento)</span><b id="us"></b></div>':'')+`<div class="t"><span>Total</span><span id="${tid}"></span></div>`;
 function upd(n,i,f,v,ci){arr(n,ci)[i][f]=f==='m'?+v:f==='f'?(+v||0):v;save();refresh()}
 function del(n,i,ci){arr(n,ci).splice(i,1);save();render()}
 function add(n,ci){arr(n,ci).push({d:'',m:0,f:nowDay()});save();render()}
 function addCard(){D().c.push({n:'Tarjeta '+(D().c.length+1),i:[]});save();render()}
 function delCard(i){if(confirm('¿Eliminar esta tarjeta y sus gastos?')){D().c.splice(i,1);save();render()}}
 function go(n){cur=shift(cur,n);render()}
-function setTab(i){tab=i;if(i===8)setTimeout(renderRep,0);document.querySelectorAll('.p').forEach((p,j)=>p.classList.toggle('on',j===i));document.querySelectorAll('#tabs button').forEach((b,j)=>b.classList.toggle('on',j===i))}
+function setTab(i){tab=i;if(i===8)setTimeout(renderRep,0);document.querySelectorAll('.p').forEach((p,j)=>p.classList.toggle('on',j===i));document.querySelectorAll('#tabs button').forEach((b,j)=>b.classList.toggle('on',b.getAttribute('onclick')==='setTab('+i+')'))}
 function num(el,v,f=F){const a=el._v||0;el._v=v;const t0=performance.now();(function s(t){const p=Math.min(1,(t-t0)/400);el.textContent=f(a+(v-a)*p);if(p<1)requestAnimationFrame(s)})(t0)}
 function render(){
 $('ml').textContent=new Date(+cur.slice(0,4),+cur.slice(5)-1).toLocaleDateString('es-CL',{month:'long',year:'numeric'});
 $('sueldo').value=D().s||'';
-$('tabs').innerHTML=[['📊','Resumen'],['📅','Quincena'],['🗓️','Último del mes'],['💳','Tarjetas'],['📲','Transferir'],['💸','Movimientos'],['🎯','Presupuestos'],['🏆','Metas'],['📈','Reportes'],['⚙️','Configuración']].map((t,i)=>`<button onclick="setTab(${i})"><i>${t[0]}</i>${t[1]}</button>`).join('')+'<button onclick="logout()"><i>⎋</i>Cerrar sesión</button>';
-$('q').innerHTML=list('q','tq');$('u').innerHTML=list('u','tu');$('t').innerHTML=list('t','tt');
+$('tabs').innerHTML=[['📊','Resumen',0],['📅','Quincena',1],['🗓️','Último del mes',2],['💳','Tarjetas',3],['📲','Transferir',4],['🧮','Simulador',10],['🤝','Compartidos',11],['💸','Movimientos',5],['🎯','Presupuestos',6],['🏆','Metas',7],['📈','Reportes',8],['⚙️','Configuración',9]].map(t=>`<button onclick="setTab(${t[2]})"><i>${t[0]}</i>${t[1]}</button>`).join('')+'<button onclick="logout()"><i>⎋</i>Cerrar sesión</button>';
+$('q').innerHTML=list('q','tq');$('u').innerHTML=list('u','tu');$('t').innerHTML=list('t','tt');$('sml').innerHTML=list('sm','sx');$('shl').innerHTML=list('sh','hx');$('hw').value=SH().w;['t','s','h'].forEach(k=>$('sb_'+k).innerHTML=sbtn(k));
 $('cards').innerHTML=D().c.length?D().c.map((c,ci)=>`<div class="cd"><div class="h"><input value="${esc(c.n)}" oninput="D().c[${ci}].n=this.value;save()"><button class="x" data-skip onclick="delCard(${ci})">✕</button></div>${rows('c',ci)}<button class="add" data-skip onclick="add('c',${ci})">+ Gasto</button><div class="t"><span>Total</span><span id="ct${ci}"></span></div></div>`).join(''):'<div class="fx">Aún no hay tarjetas. Crea una para registrar sus gastos.</div>';
 setTab(tab);refresh();renderNX()}
 function refresh(){
@@ -138,7 +145,7 @@ if(!C1){const o={plugins:{legend:{labels:{color:tx}}}};
 C1=new Chart($('c1'),{type:'doughnut',data:{labels:['Quincena','Último del mes','Tarjetas'],datasets:[{data:dn,backgroundColor:[ac,a2,'#E5E7EB'],borderWidth:0}]},options:o});
 C2=new Chart($('c2'),{type:'bar',data:{labels:['Quincena','Último','Tarjetas','Total'],datasets:[{label:'Mes anterior',data:br[0],backgroundColor:mu,borderRadius:6},{label:'Este mes',data:br[1],backgroundColor:ac,borderRadius:6}]},options:{plugins:o.plugins,scales:{x:{ticks:{color:tx}},y:{ticks:{color:tx,callback:v=>F(v)}}}}})}
 else{C1.data.datasets[0].data=dn;C1.update();C2.data.datasets[0].data=br[0];C2.data.datasets[1].data=br[1];C2.update()}
-$('cmp').textContent=P?(T.g>P.g?'Gastas '+F(T.g-P.g)+' más que el mes anterior.':'Gastas '+F(P.g-T.g)+' menos que el mes anterior.'):'No hay datos del mes anterior.';daily()}
+$('cmp').textContent=P?(T.g>P.g?'Gastas '+F(T.g-P.g)+' más que el mes anterior.':'Gastas '+F(P.g-T.g)+' menos que el mes anterior.'):'No hay datos del mes anterior.';daily();simUpd();if($('us'))$('us').textContent='−'+F(T.sh)}
 const DC=[...'Alimentación,Transporte,Vivienda,Servicios,Salud,Educación,Entretenimiento,Compras,Suscripciones,Ahorro,Deudas,Tarjetas,Otros'.split(',').map(n=>({n,t:'gasto'})),{n:'Sueldo',t:'ingreso'},{n:'Otros ingresos',t:'ingreso'}];
 const NX=()=>S.__nx||(S.__nx={cats:DC.map(x=>({...x})),mov:[],pres:{}});
 let ed=null;
@@ -203,10 +210,36 @@ async function signAll(){await sb.auth.signOut({scope:'global'});logout()}
 async function forgot(){const e=$('ae').value.trim().toLowerCase();if(!cloud){$('aerr').textContent='La recuperación por correo se activa al conectar Supabase.';return}if(!e){$('aerr').textContent='Escribe tu correo arriba.';return}
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.href.split('#')[0]});$('aerr').textContent=r.error?r.error.message:'Te enviamos un enlace al correo. Al entrar con él, cambia tu contraseña en Configuración.'}
 function backup(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'}));a.download='nexora_respaldo_'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+const SIM=()=>{S.__sim=S.__sim||{};return S.__sim[cur]||(S.__sim[cur]={s:0,i:[]})};
+const SH=()=>{S.__sh=S.__sh||{};return S.__sh[cur]||(S.__sh[cur]={w:'',i:[]})};
+function simPull(){const d=D(),m=SIM();if(m.i.length&&!confirm('Esto reemplaza los gastos simulados actuales. ¿Continuar?'))return;m.s=+d.s||0;m.i=[...d.q,...d.u,...d.c.flatMap(c=>c.i.map(i=>({d:c.n+': '+(i.d||''),m:i.m})))].filter(i=>i.m>0).map(i=>({d:i.d,m:i.m}));save();render()}
+function simUpd(){if(!S)return;const s=SIM(),g=sum(s.i),r=s.s-g,h=SH(),th=sum(h.i),T=tot(cur);
+if(document.activeElement.id!=='ss')$('ss').value=s.s||'';
+$('sg').textContent=F(g);$('sr').textContent=(r<0?'−':'')+F(Math.abs(r));$('sq').className='bx '+(r<0?'bad':'ok');
+if($('sx'))$('sx').textContent=F(g);if($('hx'))$('hx').textContent=F(th);
+$('hg2').textContent=F(th);$('hb2').textContent=F(T.u+T.t);$('hn').textContent='Antes de compartir: '+F(T.u+T.t+th)+' · Compartido'+(h.w?' con '+h.w:'')+': −'+F(th)}
+const sbtn=k=>`<button class="wa" onclick="act('${k}','wa')">📲 WhatsApp</button><button onclick="act('${k}','copy')">📋 Copiar imagen</button><button onclick="act('${k}','dl')">⬇️ Descargar</button>`;
+function getCard(k){const d=D(),T=tot(cur),mes=$('ml').textContent;
+if(k==='t'){const L=d.t.filter(i=>i.m>0);return{title:'Total a transferir',sub:mes,big:sum(L),lab:'A TRANSFERIR',rows:L,stats:[]}}
+if(k==='s'){const s=SIM(),g=sum(s.i),r=s.s-g;return{title:'Simulador de gastos',sub:mes,big:Math.abs(r),neg:r<0,lab:r<0?'TE FALTAN':'TE QUEDAN',rows:s.i.filter(i=>i.m>0),stats:[['Sueldo estimado',s.s],['Total gastos',g]]}}
+const h=SH(),th=sum(h.i);return{title:'Gastos compartidos',sub:(h.w?'con '+h.w+' · ':'')+mes,big:th,lab:'TOTAL COMPARTIDO',rows:h.i.filter(i=>i.m>0),stats:[['Antes de compartir',T.u+T.t+th],['Último del mes ahora',T.u+T.t]]}}
+const cardHTML=c=>{const col=c.neg?'#ff5d73':'#00D4A7',rw=c.rows.map((x,i)=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:8px;background:${i%2?'transparent':'rgba(255,255,255,.05)'}"><span>${esc(x.d||'Sin descripción')}</span><b style="white-space:nowrap">${F(x.m)}</b></div>`).join('');
+return `<div style="width:360px;background:#071426;color:#E5E7EB;font-family:Montserrat,system-ui,sans-serif">
+<div style="background:linear-gradient(135deg,#0B1B3B,#101F35);padding:22px 20px 18px;border-bottom:3px solid ${col}"><div style="display:flex;align-items:center;gap:8px"><svg width="30" height="30" viewBox="0 0 48 48" fill="none"><path d="M10 39V9l28 30V9" stroke="#00D4A7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="9" r="4" fill="#F4B942"/></svg><b style="letter-spacing:4px;font-size:15px">NEXORA</b></div><div style="margin-top:16px;font-size:12px;opacity:.7;text-transform:capitalize">${esc(c.sub)}</div><div style="font-size:20px;font-weight:700;margin-top:2px">${c.title}</div></div>
+<div style="padding:24px 20px 18px;text-align:center"><div style="font-size:11px;letter-spacing:2px;color:${col};font-weight:700">${c.lab}</div><div style="font-size:42px;font-weight:800;color:${col};margin-top:4px">${c.neg?'−':''}${F(c.big)}</div></div>
+${c.stats.length?'<div style="display:flex;gap:8px;padding:0 14px 16px">'+c.stats.map(x=>`<div style="flex:1;background:#101F35;border-radius:12px;padding:10px;text-align:center"><div style="font-size:10px;color:#8fa0b8">${x[0]}</div><div style="font-weight:700;font-size:15px;margin-top:2px">${F(x[1])}</div></div>`).join('')+'</div>':''}
+<div style="padding:0 14px 14px;font-size:13px"><div style="font-size:10px;letter-spacing:1.5px;color:#8fa0b8;padding:0 14px 6px">DETALLE</div>${rw||'<div style="padding:10px 14px;color:#8fa0b8">Sin detalle</div>'}</div>
+<div style="padding:14px;text-align:center;font-size:10px;letter-spacing:1px;color:#8fa0b8;border-top:1px solid #1b2e4a;line-height:1.7">CONTROLA · PLANIFICA · AHORRA<br>Tu vida financiera, en tus manos.</div></div>`};
+async function mk(c){const el=document.createElement('div');el.style.cssText='position:fixed;left:-9999px;top:0';el.innerHTML=cardHTML(c);document.body.appendChild(el);try{await document.fonts.ready;const cv=await html2canvas(el.firstElementChild,{scale:3,backgroundColor:'#071426'});return await new Promise(r=>cv.toBlob(r,'image/png'))}finally{el.remove()}}
+async function act(k,mode){const c=getCard(k);if(!c.rows.length&&!c.big){toast('No hay datos para generar la imagen.');return}
+toast('Generando imagen…');try{const bl=await mk(c),fn='nexora_'+c.title.toLowerCase().replace(/\s+/g,'_')+'_'+cur+'.png',f=new File([bl],fn,{type:'image/png'});
+if(mode==='copy'){if(navigator.clipboard&&window.ClipboardItem){try{await navigator.clipboard.write([new ClipboardItem({'image/png':bl})]);toast('Imagen copiada. Pégala en WhatsApp.');return}catch(e){}}toast('No se pudo copiar aquí; se descargó la imagen.')}
+else if(mode==='wa'){if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:c.title});return}catch(e){if(e.name==='AbortError')return}}toast('Compartir no está disponible aquí; se descargó la imagen para adjuntarla en WhatsApp.')}
+const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=fn;a.click()}catch(e){toast('No se pudo generar la imagen.')}}
 let C3,mode='acc';
 const nowDay=()=>{const t=new Date();return cur===t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')?t.getDate():0};
 const dim=k=>{const[y,m]=k.split('-').map(Number);return new Date(y,m,0).getDate()};
-function perDay(k){const d=S[k],n=dim(k),a=Array(n).fill(0);if(!d)return a;const put=(it,df)=>{a[Math.min(n,Math.max(1,+it.f||df))-1]+=+it.m||0};d.q.forEach(i=>put(i,15));d.u.forEach(i=>put(i,n));d.c.forEach(c=>c.i.forEach(i=>put(i,n)));return a}
+function perDay(k){const d=S[k],n=dim(k),a=Array(n).fill(0);if(!d)return a;const put=(it,df)=>{a[Math.min(n,Math.max(1,+it.f||df))-1]+=+it.m||0};d.q.forEach(i=>put(i,15));d.u.forEach(i=>put(i,n));d.c.forEach(c=>c.i.forEach(i=>put(i,n)));if(S.__sh&&S.__sh[k])a[n-1]-=sum(S.__sh[k].i);return a}
 function setMode(m){mode=m;daily()}
 function daily(){
 const a=perDay(cur),b=perDay(shift(cur,-1)),N=Math.max(a.length,b.length),tA=a.reduce((x,y)=>x+y,0),tB=b.reduce((x,y)=>x+y,0);
@@ -226,11 +259,13 @@ const bl=await new Promise(r=>cv.toBlob(r,'image/png')),f=new File([bl],'transfe
 if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Transferencia'});return}catch(e){if(e.name==='AbortError')return}}
 const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=f.name;a.click()}catch(e){alert('No se pudo generar la captura. Intenta de nuevo.')}}
 /* ===== Supabase: pega aquí tu URL y tu anon key para activar cuentas en la nube ===== */
-const CFG={url:'',key:''};
+const CFG=window.NEXORA_CFG||{url:'',key:''};
 const cloud=!!(CFG.url&&CFG.key&&window.supabase),sb=cloud?supabase.createClient(CFG.url,CFG.key):null;
 let U=null,tm,amode='in';
 const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}};
-const save=()=>{if(!U)return;LS('gd_data_'+U.id,S);if(cloud){clearTimeout(tm);tm=setTimeout(()=>sb.from('gastos_data').upsert({user_id:U.id,data:S,updated_at:new Date().toISOString()}),700)}};
+const save=()=>{if(!U)return;if(cloud){clearTimeout(tm);$('sst').textContent='Guardando…';tm=setTimeout(flush,700)}else LS('gd_data_'+U.id,S)};
+async function flush(){if(!cloud||!U||!tm)return;clearTimeout(tm);tm=0;const r=await sb.from('gastos_data').upsert({user_id:U.id,data:S,updated_at:new Date().toISOString()});$('sst').textContent=r.error?'⚠️ Sin guardar':'☁️ Guardado en la nube';if(r.error)toast('No se pudo guardar en la nube: '+r.error.message)}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)flush()});
 const hash=async(p,e)=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(e+':'+p)))].map(b=>b.toString(16).padStart(2,'0')).join('');
 function authTab(m){amode=m;const up=m==='up';$('an').style.display=$('asw').style.display=up?'':'none';$('a0').classList.toggle('on',!up);$('a1').classList.toggle('on',up);$('ago').textContent=up?'Crear cuenta':'Ingresar';$('aerr').textContent=''}
 async function auth(){
@@ -246,16 +281,16 @@ else if(!us[e]||us[e].h!==await hash(p,e))throw{message:'Correo o contraseña in
 U={id:e,email:e,name:us[e].n};LS('gd_sess',e)}
 await enter(up&&$('as').checked)}catch(x){err.textContent=x.message||'No se pudo completar la acción.'}}
 async function enter(sample){
-if(cloud){const r=await sb.from('gastos_data').select('data').eq('user_id',U.id).maybeSingle();S=r.data?r.data.data:null}else S=LS('gd_data_'+U.id);
+if(cloud){const r=await sb.from('gastos_data').select('data').eq('user_id',U.id).maybeSingle();if(r.error)throw r.error;S=r.data?r.data.data:null;if(!S){const lc=LS('gd_data_'+U.email);if(lc){S=lc;toast('Importamos los datos de este navegador a tu cuenta en la nube.')}}}else S=LS('gd_data_'+U.id);
 if(!S){S=sample?(LS(K)||seed()):{};save()}
-$('uname').textContent=U.name;$('uemail').textContent=U.email;document.body.classList.add('in');tab=0;render()}
-async function logout(){if(cloud)await sb.auth.signOut();LS('gd_sess',null);U=S=null;[C1,C2,C3].forEach(c=>c&&c.destroy());C1=C2=C3=null;document.body.classList.remove('in');$('ap').value=''}
+$('uname').textContent=U.name;$('uemail').textContent=U.email;$('sst').textContent=cloud?'☁️ Guardado en la nube':'💾 Solo en este navegador';document.body.classList.add('in');tab=0;render()}
+async function logout(){if(cloud){await flush();await sb.auth.signOut()}LS('gd_sess',null);U=S=null;[C1,C2,C3].forEach(c=>c&&c.destroy());C1=C2=C3=null;document.body.classList.remove('in');$('ap').value=''}
 function theme(){const r=document.documentElement,d=(r.dataset.theme||'dark')==='dark';setTheme(d?'light':'dark');if(U){[C1,C2,C3].forEach(c=>c&&c.destroy());C1=C2=C3=null;refresh();if(tab===8)renderRep()}}
 function setTheme(t){document.documentElement.dataset.theme=t;$('thm').textContent=t==='dark'?'☀️':'🌙';LS('gd_theme',t)}
 async function boot(){
 const t=LS('gd_theme');if(t)setTheme(t);else $('thm').textContent='☀️';
-$('amode').textContent=cloud?'☁️ Conectado a Supabase':'💾 Modo local: los datos se guardan solo en este navegador';
-if(cloud){const r=await sb.auth.getSession(),u=r.data.session&&r.data.session.user;if(u){U={id:u.id,email:u.email,name:(u.user_metadata&&u.user_metadata.name)||u.email};enter(false)}}
+$('amode').textContent=cloud?'☁️ Conectado a Supabase':'💾 Modo local: tus datos se guardan solo en este navegador, NO en una base de datos. Conecta Supabase (config.js) para guardarlos en la nube.';
+if(cloud){const r=await sb.auth.getSession(),u=r.data.session&&r.data.session.user;if(u){U={id:u.id,email:u.email,name:(u.user_metadata&&u.user_metadata.name)||u.email};enter(false).catch(e=>{$('aerr').textContent='No se pudo leer tu base de datos: '+e.message})}}
 else{const e=LS('gd_sess'),us=LS('gd_users')||{};if(e&&us[e]){U={id:e,email:e,name:us[e].n};enter(false)}}}
 boot();
 </script></body></html>
